@@ -1,0 +1,18 @@
+import random
+
+# Listen für die Satzgenerierung
+subjects = ['Ich', 'Du', 'Er', 'Sie', 'Wir', 'Ihr', 'Sie']
+verbs = ['spiele', 'gehe', 'liebe', 'spreche', 'lese', 'schwimme']
+objects = ['Ball', 'Haus', 'Blumen', 'Buch', 'Fisch', 'Sonne']
+
+# Funktion zur Generierung eines zufälligen Satzes
+def generiere_satz():
+    subject = random.choice(subjects)
+    verb = random.choice(verbs)
+    obj = random.choice(objects)
+    satz = f"{subject} {verb} {obj}."
+    return satz
+
+# Generiere 5 Sätze und gib sie aus
+for _ in range(5):
+    print(generiere_satz())
