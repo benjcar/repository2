@@ -1,0 +1,28 @@
+import os
+import time
+
+def beende_unbenutzte_anwendungen(timeout_in_seconds):
+    print("Hallo! Ich bin ein Bencar.")
+
+    try:
+        while True:
+            time.sleep(timeout_in_seconds)
+
+            # Hier die Liste der Prozesse abrufen
+            prozesse = os.popen('tasklist').readlines()
+
+            # Durch die Prozesse iterieren und nach nicht benötigten Anwendungen suchen
+            for prozess in prozesse:
+                if 'NotwendigeAnwendung.exe' not in prozess and 'WichtigeAnwendung.exe' not in prozess:
+                    # Den Prozess beenden
+                    prozessname = prozess.split()[0]
+                    os.system(f'taskkill /F /IM {prozessname}')
+
+            print("Nicht benötigte Anwendungen wurden beendet.")
+
+    except KeyboardInterrupt:
+        print("Das Beenden der Anwendungen wurde gestoppt.")
+
+if __name__ == "__main__":
+    zeitlimit_in_sekunden = 600  # 10 Minuten
+    beende_unbenutzte_anwendungen(zeitlimit_in_sekunden)
