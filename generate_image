@@ -1,0 +1,40 @@
+from PIL import Image, ImageDraw, ImageFont
+
+def generate_image(description, image_size=(800, 600), font_size=24):
+    image = Image.new("RGB", image_size, "white")
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.truetype("arial.ttf", font_size)  # Specify the path to the font
+
+    # Text placement parameters
+    x, y = 50, 50
+    max_width = image_size[0] - 100
+
+    # Split the description into lines based on the image width
+    words = description.split()
+    lines = []
+    current_line = words[0]
+    for word in words[1:]:
+        if font.getsize(current_line + " " + word)[0] <= max_width:
+            current_line += " " + word
+        else:
+            lines.append(current_line)
+            current_line = word
+    lines.append(current_line)
+
+    # Draw text on the image
+    for line in lines:
+        draw.text((x, y), line, font=font, fill="black")
+        y += font_size + 10
+
+    return image
+
+# Description for the image
+description = """
+This is an example image generated based on a textual description.
+Here could be your text describing the image.
+"""
+
+# Generate the image and save it
+generated_image = generate_image(description)
+generated_image.save("generated_image.png")
+generated_image.show()
